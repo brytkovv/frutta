@@ -1,19 +1,23 @@
-from vkbottle import Keyboard, Text
+from vkbottle import Keyboard, Text, OpenLink
 from app.localization import get_locale
+from app.config import GROUP_ID, MANAGER_PHONE, MANAGER_ID
 
 def main_menu_keyboard():
     """
     Главное меню (stock, delivery, presents, desserts, working_hours, feedback).
     """
     kb = Keyboard(inline=False)
-    kb.add(Text(get_locale("button.home_page.stock")), color="primary")
-    kb.add(Text(get_locale("button.home_page.delivery")), color="primary")
+    kb.add(Text(get_locale("button.home_page.stock")))
     kb.row()
-    kb.add(Text(get_locale("button.home_page.presents")), color="primary")
-    kb.add(Text(get_locale("button.home_page.desserts")), color="primary")
+    kb.add(Text(get_locale("button.home_page.presents")))
     kb.row()
-    kb.add(Text(get_locale("button.home_page.working_hours")), color="primary")
-    kb.add(Text(get_locale("button.home_page.feedback")), color="primary")
+    kb.add(Text(get_locale("button.home_page.delivery")))
+    kb.add(Text(get_locale("button.home_page.desserts")))
+    kb.row()
+    kb.add(Text(get_locale("button.home_page.working_hours")))
+    kb.row()
+
+    kb.add(Text(get_locale("button.home_page.feedback")))
 
     return kb
 
@@ -22,12 +26,23 @@ def presents_keyboard():
     Подменю "presents" (catalog, call, direct_message) + «назад».
     """
     kb = Keyboard(inline=False)
-    kb.add(Text(get_locale("button.presents.catalog")), color="primary")
-    kb.add(Text(get_locale("button.presents.call")), color="primary")
+    kb.add(OpenLink(
+        label=get_locale("button.presents.catalog"),
+        link=f"https://vk.com/market-{GROUP_ID}"
+    ))
     kb.row()
-    kb.add(Text(get_locale("button.presents.direct_message")), color="secondary")
+    kb.add(OpenLink(
+        label=get_locale("button.presents.call"),
+        link=f"tel:+{MANAGER_PHONE}"
+    ))
     kb.row()
-    kb.add(Text(get_locale("button.back")), color="negative")  # "назад"
+    # TODO: без текста ((((
+    kb.add(OpenLink(
+        label=get_locale("button.presents.direct_message"),
+        link=f"https://vk.com/im?sel={MANAGER_ID}&text=Текс" # {get_locale('button.text.direct_message')}
+    ))
+    kb.row()
+    kb.add(Text(get_locale("button.back")))  # "назад"
     return kb
 
 def back_menu_keyboard():
@@ -35,7 +50,7 @@ def back_menu_keyboard():
     Одна кнопка "назад". Можно использовать в любом месте, где нам нужно вернуться в главное меню.
     """
     kb = Keyboard(inline=False)
-    kb.add(Text(get_locale("button.back")), color="negative")
+    kb.add(Text(get_locale("button.back")))
     return kb
 
 def admin_keyboard(descriptions):
@@ -45,9 +60,9 @@ def admin_keyboard(descriptions):
     """
     kb = Keyboard(inline=False)
     for desc in descriptions:
-        kb.add(Text(desc), color="primary")
+        kb.add(Text(desc))
         kb.row()
-    kb.add(Text(get_locale("button.back")), color="negative")
+    kb.add(Text(get_locale("button.back")))
     return kb
 
 def confirm_decline_keyboard():
@@ -55,6 +70,6 @@ def confirm_decline_keyboard():
     Кнопки подтверждения/отмены изменения.
     """
     kb = Keyboard(inline=False)
-    kb.add(Text(get_locale("text.confirm")), color="positive")
-    kb.add(Text(get_locale("text.decline")), color="negative")
+    kb.add(Text(get_locale("text.confirm")))
+    kb.add(Text(get_locale("text.decline")))
     return kb

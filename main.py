@@ -3,13 +3,20 @@ import asyncio
 from vkbottle import Bot
 import uvloop
 
-from app.config import BOT_TOKEN, GROUP_ID
-from app.handlers.admin import admin_bp
-from app.handlers.user import user_bp
-from app.handlers.menu import menu_bp
+from app.config import BOT_TOKEN
+from app.handlers.admin import admin_labeler
+from app.handlers.user import user_labeler
+from app.handlers.menu import menu_labeler
 from app.database import init_db
 from app.redis_cache import init_redis
 from app.localization import load_locale
+import logging
+
+logging.basicConfig(
+    level=logging.DEBUG,  # или DEBUG, если нужно еще подробнее
+    format="%(asctime)s %(levelname)s [%(name)s] %(message)s"
+)
+
 
 
 async def main():
@@ -18,13 +25,11 @@ async def main():
     await init_redis()
     load_locale()
 
-    # Создаем экземпляр бота
-    bot = Bot(token=BOT_TOKEN, group_id=GROUP_ID)
+    bot = Bot(token=BOT_TOKEN)
 
-    # Регистрируем Blueprint'ы
-    bot.labeler.load(admin_bp)
-    bot.labeler.load(user_bp)
-    bot.labeler.load(menu_bp)
+    bot.labeler.load(admin_labeler)
+    bot.labeler.load(user_labeler)
+    bot.labeler.load(menu_labeler)
 
     # Запуск бота
     await bot.run_polling()
