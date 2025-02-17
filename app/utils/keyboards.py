@@ -1,4 +1,4 @@
-from vkbottle import Keyboard, Text, OpenLink
+from vkbottle import Keyboard, Text, OpenLink, KeyboardButtonColor
 from app.localization import get_locale
 from app.config import GROUP_ID, MANAGER_PHONE, MANAGER_ID
 
@@ -11,13 +11,13 @@ def main_menu_keyboard():
     kb.row()
     kb.add(Text(get_locale("button.home_page.presents")))
     kb.row()
-    kb.add(Text(get_locale("button.home_page.delivery")))
-    kb.add(Text(get_locale("button.home_page.desserts")))
+    kb.add(Text(get_locale("button.home_page.delivery")), color=KeyboardButtonColor.NEGATIVE)
+    kb.add(Text(get_locale("button.home_page.desserts")), color=KeyboardButtonColor.POSITIVE)
     kb.row()
-    kb.add(Text(get_locale("button.home_page.working_hours")))
+    kb.add(Text(get_locale("button.home_page.working_hours")), color=KeyboardButtonColor.PRIMARY)
     kb.row()
 
-    kb.add(Text(get_locale("button.home_page.feedback")))
+    kb.add(Text(get_locale("button.home_page.feedback")), color=KeyboardButtonColor.SECONDARY)
 
     return kb
 

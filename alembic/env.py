@@ -3,6 +3,9 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config, pool
 from alembic import context
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Импортируем вашу базовую метадату, где объявлены модели.
 # Допустим, в app.database у вас:
@@ -23,8 +26,10 @@ target_metadata = Base.metadata
 # Переопределяем sqlalchemy.url из ENV (если нужно)
 # -------------------------------------------------------------------------
 # Можно считать ENV напрямую
-DATABASE_URL = os.getenv("ALEMBIC_DATABASE_URL", "")  # Иногда задают отдельно
-if not DATABASE_URL:
+
+if os.getenv("DATABASE_URL").startswith("postgres://"):
+    DATABASE_URL = os.getenv("DATABASE_URL").replace("postgres://", "postgresql://", 1)
+else:
     DATABASE_URL = os.getenv("DATABASE_URL", "")
 
 # В alembic.ini у вас может быть:
