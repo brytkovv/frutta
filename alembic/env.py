@@ -7,10 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Импортируем вашу базовую метадату, где объявлены модели.
-# Допустим, в app.database у вас:
-#   Base = declarative_base()
-# И все модели наследуются от Base
 from app.database import Base
 
 # Это Alembic Config объект, который читает настройки из alembic.ini
@@ -32,9 +28,6 @@ if os.getenv("DATABASE_URL").startswith("postgres://"):
 else:
     DATABASE_URL = os.getenv("DATABASE_URL", "")
 
-# В alembic.ini у вас может быть:
-#   sqlalchemy.url = postgresql://fake-url
-# Но мы сейчас заменим это на реальный URL из ENV
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 

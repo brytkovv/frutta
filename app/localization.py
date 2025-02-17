@@ -32,7 +32,3 @@ def get_locale(path: str) -> str:
     if isinstance(current, str):
         return current
     return ""
-
-
-# При инициализации приложения вызываем load_locale() (можно один раз в main.py)
-# Затем в коде бота можно делать, например: text = get_locale("text.greetings")

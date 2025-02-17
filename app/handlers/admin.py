@@ -15,6 +15,13 @@ class AdminState(BaseStateGroup):
     WAITING_FOR_NEW_TEXT = 1
     CONFIRMING_NEW_TEXT = 2
 
+@admin_labeler.on.message(text=["Админка", get_locale("button.admin")])
+async def admin_menu(message: Message):
+    """ Вход в админку (не в FSM) """
+    if message.from_id not in VK_ADMIN_IDS:
+        return
+    await show_admin_menu(message)
+
 
 async def show_admin_menu(message: Message):
     """Вспомогательная функция, чтобы показать меню админа"""
@@ -63,8 +70,6 @@ async def admin_choose_key(message: Message):
     await admin_labeler.state_dispenser.set(
         peer_id=message.peer_id,
         state=AdminState.WAITING_FOR_NEW_TEXT,
-        # в старых версиях state_dispenser.set(...) принимает дополнительный словарь во 2м параметре
-        # но в 3.0.0 можно передавать keyword-аргументом: `chosen_key=...`
         chosen_key=chosen_answer.key
     )
     await message.answer("Введите новый текст (до 4096 символов):")
@@ -73,9 +78,7 @@ async def admin_choose_key(message: Message):
 @admin_labeler.on.message(state=AdminState.WAITING_FOR_NEW_TEXT)
 async def admin_input_new_text(message: Message):
     """ Сохраняем введённый текст во временные данные, спрашиваем подтверждение. """
-    # Обновим data
     current_data = await admin_labeler.state_dispenser.get(message.peer_id)
-    chosen_key = current_data.payload.get("chosen_key")
     new_data = current_data.payload.copy()
     new_data["new_text"] = message.text
 
@@ -113,12 +116,3 @@ async def admin_confirm_new_text(message: Message):
     else:
         await message.answer("Нужно выбрать Подтвердить или Отменить.")
         return
-
-
-@admin_labeler.on.message(text=["Админка", get_locale("button.admin")])
-async def admin_menu(message: Message):
-    """ Вход в админку (не в FSM) """
-    if message.from_id not in VK_ADMIN_IDS:
-        await message.answer("Нет доступа.")
-        return
-    await show_admin_menu(message)

@@ -11,13 +11,12 @@ def main_menu_keyboard():
     kb.row()
     kb.add(Text(get_locale("button.home_page.presents")))
     kb.row()
-    kb.add(Text(get_locale("button.home_page.delivery")), color=KeyboardButtonColor.NEGATIVE)
-    kb.add(Text(get_locale("button.home_page.desserts")), color=KeyboardButtonColor.POSITIVE)
+    kb.add(Text(get_locale("button.home_page.delivery")))
+    kb.add(Text(get_locale("button.home_page.desserts")))
     kb.row()
-    kb.add(Text(get_locale("button.home_page.working_hours")), color=KeyboardButtonColor.PRIMARY)
+    kb.add(Text(get_locale("button.home_page.working_hours")))
     kb.row()
-
-    kb.add(Text(get_locale("button.home_page.feedback")), color=KeyboardButtonColor.SECONDARY)
+    kb.add(Text(get_locale("button.home_page.feedback")))
 
     return kb
 
@@ -36,10 +35,9 @@ def presents_keyboard():
         link=f"tel:+{MANAGER_PHONE}"
     ))
     kb.row()
-    # TODO: без текста ((((
     kb.add(OpenLink(
         label=get_locale("button.presents.direct_message"),
-        link=f"https://vk.com/im?sel={MANAGER_ID}" # {get_locale('button.text.direct_message')}
+        link=f"https://vk.com/im?sel={MANAGER_ID}"
     ))
     kb.row()
     kb.add(Text(get_locale("button.back")))  # "назад"
@@ -70,8 +68,8 @@ def confirm_decline_keyboard():
     Кнопки подтверждения/отмены изменения.
     """
     kb = Keyboard(inline=True)
-    kb.add(Text(get_locale("text.confirm")))
-    kb.add(Text(get_locale("text.decline")))
+    kb.add(Text(get_locale("text.confirm")), color=KeyboardButtonColor.POSITIVE)
+    kb.add(Text(get_locale("text.decline")), color=KeyboardButtonColor.NEGATIVE)
     return kb
 
 def empty_kb():

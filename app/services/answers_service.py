@@ -1,7 +1,5 @@
 from typing import Optional, List
 from sqlalchemy import select
-from sqlalchemy.exc import NoResultFound
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.redis_cache import get_from_cache, set_to_cache, delete_cache
 from app.database import SessionLocal
