@@ -1,7 +1,7 @@
 import logging
 from vkbottle.bot import BotLabeler, Message
 from app.services.answers_service import get_answer_by_key
-from app.utils.keyboards import back_menu_keyboard, presents_keyboard
+from app.utils.keyboards import back_menu_keyboard, presents_keyboard, empty_kb
 from app.localization import get_locale
 
 
@@ -51,3 +51,8 @@ async def handle_working_hours(message: Message):
 async def handle_feedback(message: Message):
     feedback_text = await get_answer_by_key("feedback") or ""
     await message.answer(feedback_text, keyboard=back_menu_keyboard().get_json())
+
+
+@user_labeler.message(text=["Убрать клавиатуру"]) # get_locale("button.home_page.feedback")
+async def remove_keyboard(message: Message):
+    await message.answer("Клавиатуры больше нет", keyboard=empty_kb().get_json())

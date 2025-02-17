@@ -6,7 +6,7 @@ def main_menu_keyboard():
     """
     Главное меню (stock, delivery, presents, desserts, working_hours, feedback).
     """
-    kb = Keyboard(inline=False)
+    kb = Keyboard(inline=True)
     kb.add(Text(get_locale("button.home_page.stock")))
     kb.row()
     kb.add(Text(get_locale("button.home_page.presents")))
@@ -25,7 +25,7 @@ def presents_keyboard():
     """
     Подменю "presents" (catalog, call, direct_message) + «назад».
     """
-    kb = Keyboard(inline=False)
+    kb = Keyboard(inline=True)
     kb.add(OpenLink(
         label=get_locale("button.presents.catalog"),
         link=f"https://vk.com/market-{GROUP_ID}"
@@ -49,7 +49,7 @@ def back_menu_keyboard():
     """
     Одна кнопка "назад". Можно использовать в любом месте, где нам нужно вернуться в главное меню.
     """
-    kb = Keyboard(inline=False)
+    kb = Keyboard(inline=True)
     kb.add(Text(get_locale("button.back")))
     return kb
 
@@ -58,7 +58,7 @@ def admin_keyboard(descriptions):
     Клавиатура для админа: список кнопок (по их description) + назад.
     descriptions: список строк, каждая — description записи, которую можно изменить.
     """
-    kb = Keyboard(inline=False)
+    kb = Keyboard(inline=True)
     for desc in descriptions:
         kb.add(Text(desc))
         kb.row()
@@ -69,7 +69,13 @@ def confirm_decline_keyboard():
     """
     Кнопки подтверждения/отмены изменения.
     """
-    kb = Keyboard(inline=False)
+    kb = Keyboard(inline=True)
     kb.add(Text(get_locale("text.confirm")))
     kb.add(Text(get_locale("text.decline")))
     return kb
+
+def empty_kb():
+    """
+    Пустая клавиатура.
+    """
+    return Keyboard(inline=False)
