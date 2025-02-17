@@ -5,7 +5,6 @@ from app.services.answers_service import get_all_can_change_answers, update_answ
 from app.utils.keyboards import admin_keyboard, confirm_decline_keyboard, back_menu_keyboard
 from app.localization import get_locale
 from app.config import VK_ADMIN_IDS
-from vkbottle import Text
 
 admin_labeler = BotLabeler()
 admin_labeler.vbml_ignore_case = True  # чтобы обрабатывало сообщения без учёта регистра

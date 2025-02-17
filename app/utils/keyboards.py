@@ -39,7 +39,7 @@ def presents_keyboard():
     # TODO: без текста ((((
     kb.add(OpenLink(
         label=get_locale("button.presents.direct_message"),
-        link=f"https://vk.com/im?sel={MANAGER_ID}&text=Текс" # {get_locale('button.text.direct_message')}
+        link=f"https://vk.com/im?sel={MANAGER_ID}" # {get_locale('button.text.direct_message')}
     ))
     kb.row()
     kb.add(Text(get_locale("button.back")))  # "назад"
