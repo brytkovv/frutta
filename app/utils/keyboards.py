@@ -41,7 +41,7 @@ def presents_keyboard():
         link=f"https://vk.com/im?sel={MANAGER_ID}"
     ), color=KeyboardButtonColor.PRIMARY)
     kb.row()
-    kb.add(Text(get_locale("button.back")))  # "назад"
+    kb.add(Text(get_locale("button.back")), color=KeyboardButtonColor.PRIMARY)  # "назад"
     return kb
 
 def back_menu_keyboard():
