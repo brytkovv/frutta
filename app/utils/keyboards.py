@@ -1,6 +1,6 @@
 from vkbottle import Keyboard, Text, OpenLink, KeyboardButtonColor
 from app.localization import get_locale
-from app.config import GROUP_ID, MANAGER_PHONE, MANAGER_ID
+from app.config import GROUP_ID, MANAGER_PHONE
 
 def main_menu_keyboard():
     """
@@ -34,11 +34,6 @@ def presents_keyboard():
     kb.add(OpenLink(
         label=get_locale("button.presents.call"),
         link=f"tel:+{MANAGER_PHONE}"
-    ), color=KeyboardButtonColor.PRIMARY)
-    kb.row()
-    kb.add(OpenLink(
-        label=get_locale("button.presents.direct_message"),
-        link=f"https://vk.com/im?sel={MANAGER_ID}"
     ), color=KeyboardButtonColor.PRIMARY)
     kb.row()
     kb.add(Text(get_locale("button.back")), color=KeyboardButtonColor.PRIMARY)  # "назад"
