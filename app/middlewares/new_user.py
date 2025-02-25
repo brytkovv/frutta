@@ -1,4 +1,3 @@
-import logging
 from typing import List, Any
 
 from vkbottle import BaseMiddleware
@@ -7,8 +6,9 @@ from vkbottle.dispatch.views.abc import ABCView
 from vkbottle.dispatch.handlers.abc import ABCHandler
 
 from app.services.clients_service import is_client_exists, create_client
-from app.utils.keyboards import start_keyboard
+from app.utils.keyboards import main_menu_keyboard
 from app.localization import get_locale
+from app.utils.logs import logger
 
 
 class NewUserMiddleware(BaseMiddleware):
@@ -32,7 +32,7 @@ class NewUserMiddleware(BaseMiddleware):
         if not user_exists:
             new_client = await create_client(event.from_id)
             self.was_new_user = True
-            logging.info(
+            logger.info(
                 f"[NewUserMiddleware] Создан новый клиент: id={new_client.id}, vk_id={event.from_id}"
             )
 
@@ -54,9 +54,8 @@ class NewUserMiddleware(BaseMiddleware):
         шлём "стартовый" текст и кнопку "Начать".
         """
         if self.was_new_user and not handle_responses:
-            start_text = get_locale("text.start")
-            kb = start_keyboard()
-            await event.answer(start_text, keyboard=kb.get_json())
-            logging.info(f"[NewUserMiddleware] Отправлено 'start' пользователю {event.from_id}")
+            greetings = get_locale("text.greetings")
+            await event.answer(greetings, keyboard=main_menu_keyboard().get_json())
+            logger.info(f"[NewUserMiddleware] Отправлено 'menu' пользователю {event.from_id}")
 
         return True

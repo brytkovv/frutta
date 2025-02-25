@@ -1,7 +1,7 @@
-import logging
 from vkbottle.bot import Blueprint, Message
 from app.services.answers_service import get_answer_by_key
 from app.utils.keyboards import back_menu_keyboard, presents_keyboard, empty_kb
+from app.utils.logs import logger
 from app.localization import get_locale
 
 
@@ -11,7 +11,7 @@ user_labeler.vbml_ignore_case = True  # Игнорируем регистр
 
 @user_labeler.on.message(text=["Акции", "Актуальные акции и предложения"]) # get_locale("button.home_page.stock")
 async def handle_stock(message: Message):
-    logging.info(f"handle_stock called by user_id={message.from_id}, text={message.text!r}")
+    logger.info(f"handle_stock called by user_id={message.from_id}, text={message.text!r}")
     stock_text = await get_answer_by_key("stock") or "Пока нет текста 'stock'"
     await message.answer(stock_text, keyboard=back_menu_keyboard().get_json())
 
