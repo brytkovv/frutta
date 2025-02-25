@@ -102,14 +102,14 @@ async def admin_confirm_new_text(message: Message):
     new_text = current_data.payload.get("new_text")
 
     user_input = message.text.lower()
-    if user_input == get_locale("text.confirm").lower():
+    if user_input == get_locale("button.confirm").lower():
         # Обновляем БД
         await update_answer(chosen_key, new_text)
         await message.answer(f"Обновлено.\nKey: {chosen_key}\n\nНовый текст:\n{new_text}")
         # Снова показываем меню админа (но состояние сбрасывать не обязательно; можно заново показать)
         await show_admin_menu(message)
 
-    elif user_input == get_locale("text.decline").lower():
+    elif user_input == get_locale("button.decline").lower():
         await message.answer("Отменено.")
         # Снова показываем меню админа
         await show_admin_menu(message)
