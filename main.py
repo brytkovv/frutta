@@ -10,6 +10,7 @@ from app.handlers.menu import menu_labeler
 from app.database import init_db
 from app.redis_cache import init_redis
 from app.localization import load_locale
+from app.middlewares.new_user import NewUserMiddleware
 
 
 async def main():
@@ -18,6 +19,8 @@ async def main():
     load_locale()
 
     bot = Bot(token=BOT_TOKEN)
+
+    bot.labeler.message_view.register_middleware(NewUserMiddleware())
 
     admin_labeler.load(bot)
     user_labeler.load(bot)

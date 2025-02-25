@@ -52,6 +52,7 @@ def admin_keyboard(descriptions):
     Клавиатура для админа: список кнопок (по их description) + назад.
     descriptions: список строк, каждая — description записи, которую можно изменить.
     """
+    # TODO: пагинация
     kb = Keyboard(inline=True)
     for desc in descriptions:
         kb.add(Text(desc))
@@ -64,8 +65,8 @@ def confirm_decline_keyboard():
     Кнопки подтверждения/отмены изменения.
     """
     kb = Keyboard(inline=True)
-    kb.add(Text(get_locale("text.confirm")), color=KeyboardButtonColor.POSITIVE)
-    kb.add(Text(get_locale("text.decline")), color=KeyboardButtonColor.NEGATIVE)
+    kb.add(Text(get_locale("button.confirm")), color=KeyboardButtonColor.POSITIVE)
+    kb.add(Text(get_locale("button.decline")), color=KeyboardButtonColor.NEGATIVE)
     return kb
 
 def empty_kb():
@@ -73,3 +74,8 @@ def empty_kb():
     Пустая клавиатура.
     """
     return Keyboard(inline=False)
+
+def start_keyboard():
+    kb = Keyboard(inline=True)
+    kb.add(Text(get_locale("button.start")), color=KeyboardButtonColor.POSITIVE)
+    return kb
