@@ -74,8 +74,3 @@ def empty_kb():
     Пустая клавиатура.
     """
     return Keyboard(inline=False)
-
-def start_keyboard():
-    kb = Keyboard(inline=True)
-    kb.add(Text(get_locale("button.start")), color=KeyboardButtonColor.POSITIVE)
-    return kb
