@@ -4,6 +4,7 @@ from vkbottle.bot import Blueprint, Message
 from app.localization import get_locale
 from app.utils.keyboards import main_menu_keyboard
 from app.utils.logs import logger
+from app.services.answers_service import get_answer_by_key
 
 
 menu_labeler = Blueprint()
@@ -17,5 +18,5 @@ async def back_to_menu(message: Message):
         f"[{datetime.now()}] back_to_menu handler вызван. user_id={message.from_id}, text={message.text!r}"
     )
 
-    greetings = get_locale("text.greeting")
+    greetings = await get_answer_by_key("greeting") or ""
     await message.answer(greetings, keyboard=main_menu_keyboard().get_json())

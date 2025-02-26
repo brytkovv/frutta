@@ -9,6 +9,7 @@ from app.services.clients_service import is_client_exists, create_client
 from app.utils.keyboards import main_menu_keyboard
 from app.localization import get_locale
 from app.utils.logs import logger
+from app.services.answers_service import get_answer_by_key
 
 
 class NewUserMiddleware(BaseMiddleware):
@@ -54,7 +55,7 @@ class NewUserMiddleware(BaseMiddleware):
         шлём "стартовый" текст и кнопку "Начать".
         """
         if self.was_new_user and not handle_responses:
-            greetings = get_locale("text.greeting")
+            greetings = await get_answer_by_key("greeting") or ""
             await event.answer(greetings, keyboard=main_menu_keyboard().get_json())
             logger.info(f"[NewUserMiddleware] Отправлено 'menu' пользователю {event.from_id}")
 
