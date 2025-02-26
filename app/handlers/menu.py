@@ -17,5 +17,5 @@ async def back_to_menu(message: Message):
         f"[{datetime.now()}] back_to_menu handler вызван. user_id={message.from_id}, text={message.text!r}"
     )
 
-    greetings = get_locale("text.greetings")
+    greetings = get_locale("text.greeting")
     await message.answer(greetings, keyboard=main_menu_keyboard().get_json())

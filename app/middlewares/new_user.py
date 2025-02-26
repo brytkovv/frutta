@@ -54,7 +54,7 @@ class NewUserMiddleware(BaseMiddleware):
         шлём "стартовый" текст и кнопку "Начать".
         """
         if self.was_new_user and not handle_responses:
-            greetings = get_locale("text.greetings")
+            greetings = get_locale("text.greeting")
             await event.answer(greetings, keyboard=main_menu_keyboard().get_json())
             logger.info(f"[NewUserMiddleware] Отправлено 'menu' пользователю {event.from_id}")
 
